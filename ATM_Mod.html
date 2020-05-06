@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ATM Simulator</title>
+    <script language="javascript" type="text/javascript">
+
+        var temp = {};
+
+        function DenomiCheck(denomi , num, {value}){
+            var i = parseInt(value/denomi);
+            if((i!=0)&&(i<=num)) {
+                value = value - i*denomi; document.write("Receive "+i+" "+denomi+" notes");
+            } else if(i>num) {
+                value = value - num*denomi; document.write("Receive "+num+" "+denomi+" notes");
+            }
+            temp = {value};
+        }
+
+        function ATM_Module(){
+
+            var t = parseInt(document.getElementById("textbox").value);
+            if(isNaN(t)){
+            document.getElementById("NAN").innerHTML = "Please enter a numeric value";
+            return 0;
+            }
+            temp = {value : Math.abs(t) };
+
+            DenomiCheck(2000,2,temp);
+            DenomiCheck(500,5,temp);
+            DenomiCheck(200,3,temp);
+            DenomiCheck(100,6,temp);
+
+            if(temp.value!=0)
+                document.write("Sorry we can't pay in "+temp.value+" denomination :(");
+        }
+
+    </script>
+</head>
+<p>Please enter the amount to be withdrawn</p>
+<form novalidate onsubmit="ATM_Module()">
+<input type="text" id="textbox" name="textbox" />
+    <button type="submit">Withdraw</button>
+<p id = "NAN" style="color:red"></p>
+</form>
+</body>
+</html>
